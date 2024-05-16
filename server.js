@@ -13,6 +13,19 @@ const logConnection = (message) => {
   console.log(`[${timestamp}] ${message}`);
 };
 
+// Endpoint REST API untuk trigger "Push to Talk"
+app.post("/push-to-talk", (req, res) => {
+  // Broadcast pesan ke semua klien terhubung
+  const message = "Push to Talk button triggered!";
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(message);
+    }
+  });
+
+  res.status(200).send("Push to Talk action triggered successfully");
+});
+
 wss.on("connection", (ws, req) => {
   const clientIp = req.socket.remoteAddress;
   const connectionTime = new Date().toLocaleTimeString();
