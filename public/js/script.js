@@ -1,5 +1,5 @@
 const microphoneButton = document.getElementById("microphoneButton");
-const ws = new WebSocket("ws://localhost:3000");
+const ws = new WebSocket("wss://ptt-express.vercel.app:3000");
 
 ws.onopen = () => {
 console.log("Connected to server");
